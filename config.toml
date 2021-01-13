@@ -2,8 +2,9 @@ baseURL = "https://potat0ast.com/"
 languageCode = "en-us"
 title = "potat0ast"
 theme = "line"
-pygmentsCodeFences = true
-pygmentsUseClasses = true
+pygmentsCodefences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsStyle = "monokai"
 ignoreErrors = ["error-remote-getjson"]
 [taxonomies]
   category = "categories"
