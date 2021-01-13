@@ -1,0 +1,89 @@
+baseURL = "https://potat0ast.com/"
+languageCode = "en-us"
+title = "potat0ast"
+theme = "lines"
+ignoreErrors = ["error-remote-getjson"]
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+
+languageCode = "en-us"
+disableKinds = ["section", "categories"]
+disqusShortname = ""
+pygmentsCodeFences = false
+pygmentsUseClasses = false
+paginate = 999
+minify = true
+
+
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.instagram]
+    disable = true
+  [privacy.twitter]
+    disable = true
+  [privacy.vimeo]
+    disable = true
+  [privacy.youtube]
+    disable = true
+
+[Author]
+  name = ""
+
+[params]
+  description = ""
+  author = ""
+  copyright = ""
+  logo = ""
+
+[frontmatter]
+  date  = [":filename", ":default"]
+  author = "potat0ast"
+  github = ""
+  facebook = ""
+  og_image = ""
+  sitename = ""
+  twitter = ""
+
+[permalinks]
+  posts = "/:year/:month/:day/:filename"
+  pages = "/:slug"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML"]
+
+
+[outputFormats.JSON]
+  mediatype = "application/json"
+  baseName = "feed"
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[menu]
+  [[menu.main]]
+    identifier = "index"
+    name       = "Index"
+    url        = "/"
+    weight     = -111
+
+  [[menu.main]]
+    identifier = "tags"
+    name       = "Tags"
+    url        = "/tags/"
+    weight     = -50
+
+
+  [[menu.main]]
+    identifier = "about"
+    name       = "About"
+    url        = "/about/"
+    weight     = -20
+
