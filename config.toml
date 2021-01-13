@@ -2,6 +2,8 @@ baseURL = "https://potat0ast.com/"
 languageCode = "en-us"
 title = "potat0ast"
 theme = "line"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 ignoreErrors = ["error-remote-getjson"]
 [taxonomies]
   category = "categories"
@@ -11,8 +13,6 @@ ignoreErrors = ["error-remote-getjson"]
 languageCode = "en-us"
 disableKinds = ["section", "categories"]
 disqusShortname = ""
-pygmentsCodeFences = true
-pygmentsUseClasses = true
 paginate = 999
 minify = true
 
