@@ -12,7 +12,7 @@ languageCode = "en-us"
 disableKinds = ["section", "categories"]
 disqusShortname = ""
 pygmentsCodeFences = true
-pygmentsUseClasses = false
+pygmentsUseClasses = true
 paginate = 999
 minify = true
 
