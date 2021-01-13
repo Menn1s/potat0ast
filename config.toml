@@ -1,7 +1,7 @@
 baseURL = "https://potat0ast.com/"
 languageCode = "en-us"
 title = "potat0ast"
-theme = "lines"
+theme = "line"
 ignoreErrors = ["error-remote-getjson"]
 [taxonomies]
   category = "categories"
