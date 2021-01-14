@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Drip</title>
-    <link>http://example.org/tags/</link>
-    <description>Recent content in Tags on Drip</description>
+    <title>Tags on potat0ast</title>
+    <link>https://potat0ast.com/tags/</link>
+    <description>Recent content in Tags on potat0ast</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Jan 2021 21:55:56 -0800</lastBuildDate><atom:link href="http://example.org/tags/atom.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jan 2021 21:55:56 -0800</lastBuildDate><atom:link href="https://potat0ast.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>test</title>
-      <link>http://example.org/tags/test/</link>
+      <link>https://potat0ast.com/tags/test/</link>
       <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
       
-      <guid>http://example.org/tags/test/</guid>
+      <guid>https://potat0ast.com/tags/test/</guid>
       <description></description>
     </item>
     
     <item>
       <title>welcome</title>
-      <link>http://example.org/tags/welcome/</link>
+      <link>https://potat0ast.com/tags/welcome/</link>
       <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
       
-      <guid>http://example.org/tags/welcome/</guid>
+      <guid>https://potat0ast.com/tags/welcome/</guid>
       <description></description>
     </item>
     
     <item>
       <title>css</title>
-      <link>http://example.org/tags/css/</link>
+      <link>https://potat0ast.com/tags/css/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/css/</guid>
+      <guid>https://potat0ast.com/tags/css/</guid>
       <description></description>
     </item>
     
     <item>
       <title>html</title>
-      <link>http://example.org/tags/html/</link>
+      <link>https://potat0ast.com/tags/html/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/html/</guid>
+      <guid>https://potat0ast.com/tags/html/</guid>
       <description></description>
     </item>
     
     <item>
       <title>markdown</title>
-      <link>http://example.org/tags/markdown/</link>
+      <link>https://potat0ast.com/tags/markdown/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/markdown/</guid>
+      <guid>https://potat0ast.com/tags/markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>themes</title>
-      <link>http://example.org/tags/themes/</link>
+      <link>https://potat0ast.com/tags/themes/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/themes/</guid>
+      <guid>https://potat0ast.com/tags/themes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>privacy</title>
-      <link>http://example.org/tags/privacy/</link>
+      <link>https://potat0ast.com/tags/privacy/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/privacy/</guid>
+      <guid>https://potat0ast.com/tags/privacy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shortcodes</title>
-      <link>http://example.org/tags/shortcodes/</link>
+      <link>https://potat0ast.com/tags/shortcodes/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/shortcodes/</guid>
+      <guid>https://potat0ast.com/tags/shortcodes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>text</title>
-      <link>http://example.org/tags/text/</link>
+      <link>https://potat0ast.com/tags/text/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/text/</guid>
+      <guid>https://potat0ast.com/tags/text/</guid>
       <description></description>
     </item>
     
     <item>
       <title>emoji</title>
-      <link>http://example.org/tags/emoji/</link>
+      <link>https://potat0ast.com/tags/emoji/</link>
       <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/emoji/</guid>
+      <guid>https://potat0ast.com/tags/emoji/</guid>
       <description></description>
     </item>
     
