@@ -1,9 +1,7 @@
 ---
 title: "About"
-date: 2021-01-11T22:56:54-08:00
-draft: true
+date: 2021-01-13T23:49:48-08:00
+draft: false
 ---
 
-## About
-
-Hello, my name is Dennis
+new non drafty about page
