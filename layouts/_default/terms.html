@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  {{ partial "head.html" . }}
+<body>
+  <main>
+    {{ partial "header.html" . }}
+    <section>
+
+
+      <ul class="posts">
+  {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+    <a href="/tags/{{ $name | urlize }}">&nbsp{{ $name | humanize }}({{ $taxonomy.Count }})&nbsp</a>
+  <a>𝄂</a>
+{{end}}
+
+</ul>
+
+    </section>
+    {{ partial "footer.html" . }}
+  </main>
+</body>
+</html>
