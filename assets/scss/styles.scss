@@ -4,6 +4,18 @@
 	padding:0;
 }
 
+h1 {
+   width: 89%;
+   border-bottom: 3px solid #000;
+   line-height: 0.1em;
+   margin: 40px 0 20px 75px;
+}
+
+h1 span {
+    background:#fff;
+    padding:0 10px;
+}
+
 body {
 	font: 1rem/1.5 -apple-system,BlinkMacSystemFont,"avenir next",avenir,helvetica,"helvetica neue",ubuntu,roboto,noto,"segoe ui",arial,sans-serif;
 	text-rendering:optimizeSpeed;
