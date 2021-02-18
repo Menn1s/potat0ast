@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.91 scan initiated Wed Feb 17 11:10:27 2021 as: nmap -oA 200-udp -&#45;stats-every 60s -&#45;log-errors -&#45;reason -v -n -Pn -sU -&#45;top-ports 200 -T4 -&#45;open 135.108.57.101 -->
+<nmaprun scanner="nmap" args="nmap -oA 200-udp -&#45;stats-every 60s -&#45;log-errors -&#45;reason -v -n -Pn -sU -&#45;top-ports 200 -T4 -&#45;open 135.108.57.101" start="1613589027" startstr="Wed Feb 17 11:10:27 2021" version="7.91" xmloutputversion="1.05">
+<scaninfo type="udp" protocol="udp" numservices="200" services="7,9,13,17,19,21-23,37,42,49,53,67-69,80,88,111,120,123,135-139,158,161-162,177,192,199,389,407,427,443,445,464,497,500,514-515,517-518,520,593,623,626,631,664,683,800,989-990,996-999,1001,1008,1019,1021-1034,1036,1038-1039,1041,1043-1045,1049,1068,1419,1433-1434,1645-1646,1701,1718-1719,1782,1812-1813,1885,1900,2000,2002,2048-2049,2148,2222-2223,2967,3052,3130,3283,3389,3456,3659,3703,4000,4045,4444,4500,4672,5000-5001,5060,5093,5351,5353,5355,5500,5632,6000-6001,6346,7938,9200,9876,10000,10080,11487,16680,17185,19283,19682,20031,22986,27892,30718,31337,32768-32773,32815,33281,33354,34555,34861-34862,37444,39213,41524,44968,49152-49154,49156,49158-49159,49162-49163,49165-49166,49168,49171-49172,49179-49182,49184-49196,49199-49202,49205,49208-49211,58002,65024"/>
+<verbose level="1"/>
+<debugging level="0"/>
+<taskbegin task="UDP Scan" time="1613589027"/>
+<taskend task="UDP Scan" time="1613589048" extrainfo="200 total ports"/>
+<host starttime="1613589027" endtime="1613589048"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="135.108.57.101" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="open|filtered" count="200">
+<extrareasons reason="no-responses" count="200"/>
+</extraports>
+</ports>
+</host>
+<runstats><finished time="1613589048" timestr="Wed Feb 17 11:10:48 2021" summary="Nmap done at Wed Feb 17 11:10:48 2021; 1 IP address (1 host up) scanned in 21.29 seconds" elapsed="21.29" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

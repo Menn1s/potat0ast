@@ -4,12 +4,46 @@
 	padding:0;
 }
 
+
 h1 {
    width: auto;
    border-bottom: 3px solid #000;
    line-height: 0.1em;
    margin: 40px 0 20px 75px;
 }
+
+.box{
+    display: block;
+    position: absolute;
+    opacity: 0;
+    width: 0%;
+    height: 0px;
+    transition: all 0.4s linear 0.2s;
+    z-index: 1000;
+}
+
+a:hover + .box,.box:hover,iframe{
+    display: block;
+    position: absolute;
+    z-index: 100;
+    opacity: 1;
+    height: 80%;
+    width: 500px;
+    z-index: 100;
+
+}
+
+.box iframe{
+  width: 40;
+  z-index: 100;
+}
+
+a:hover + iframe,iframe:hover{
+  width: 100;
+  z-index: 100;
+}
+
+
 
 h1 span {
     background:#fff;
@@ -19,6 +53,7 @@ h1 span {
 body {
 	font: 1rem/1.5 -apple-system,BlinkMacSystemFont,"avenir next",avenir,helvetica,"helvetica neue",ubuntu,roboto,noto,"segoe ui",arial,sans-serif;
 	text-rendering:optimizeSpeed;
+  background-color: white;
 }
 
 .posts hr {

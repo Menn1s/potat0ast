@@ -1,0 +1,7 @@
+# Nmap 7.91 scan initiated Wed Feb 17 11:10:27 2021 as: nmap -oA 200-udp --stats-every 60s --log-errors --reason -v -n -Pn -sU --top-ports 200 -T4 --open 135.108.57.101
+Nmap scan report for 135.108.57.101
+Host is up, received user-set.
+All 200 scanned ports on 135.108.57.101 are open|filtered because of 200 no-responses
+
+Read data files from: /usr/local/bin/../share/nmap
+# Nmap done at Wed Feb 17 11:10:48 2021 -- 1 IP address (1 host up) scanned in 21.29 seconds
