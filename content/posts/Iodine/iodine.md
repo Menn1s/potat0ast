@@ -12,7 +12,7 @@ tags:
 ## Introduction
 What is Iodine? Rather than defining it, let's start with an example. Let's say you have physical access to a box and you desperately need to exfiltrate some data. However, you quickly discover that you cannot connect outbound on any port except 53. Basic protocol checks prevent you from simply configuring an FTP server on port 53 of your cloud server. And to throw another wrench into the gears, it seems like they have locked you into a set of standard public DNS servers anyway. How will you get any data out through just DNS destined for Google or Cloudflare servers? This is where Iodine comes in. (Some have also noted Iodine's usefulness in getting free wifi on planes and in hotels but we are not doing this)
 
-Iodine provides a DNS tunnel on which other protocols such as HTTP or FTP can piggy back, allowing us to upload files with just access to public DNS servers. For more information on how non-DNS data may be carried over DNS, see our previous {{<preview-link "https://svl.sh/oob-dns/" blog>}} on out-of-band DNS.
+Iodine provides a DNS tunnel on which other protocols such as HTTP or FTP can piggy back, allowing us to upload files with just access to public DNS servers. For more information on how non-DNS data may be carried over DNS, see our previous {{<preview-link "https://svl.sh/oob-dns/" blogeronito>}} on out-of-band DNS.
 
 ## What you need
 - A domain. Grab one off Namecheap or Godaddy, to name a couple domain name registrars.
