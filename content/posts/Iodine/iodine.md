@@ -1,4 +1,5 @@
 ---
+
 title: "Configuring Iodine"
 date: 2021-05-19T10:08:56-08:00
 draft: false
@@ -6,6 +7,7 @@ tags:
 - oob
 - dns
 - exfiltration
+
 ---
 
 # Setting up and Using Iodine
