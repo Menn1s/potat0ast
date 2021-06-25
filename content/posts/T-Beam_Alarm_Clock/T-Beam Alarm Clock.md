@@ -17,6 +17,7 @@ Finally they arrived... but I ordered the wrong ones with no OLED screens. I cou
 Those show up, I flash them and..... GPS does not connect. Needless to say, I did a bit of Googling but couldn't find much, so they started to sit there.
 Anyway, I needed an alarm because I didn't want an excuse to keep my phone near my bed (since it is the current alarm in use). That thing is an adult pacifier and probably the most appealing thing next to staring at the ceiling. So instead of buying 
 ![19319ca1ecebdab7b1d394774de2f5dc.png](/posts/T-Beam_Alarm_Clock/19319ca1ecebdab7b1d394774de2f5dc.png)
+
 I opted to at least make some use of the hundred dollars spent (wasted).
 
 ##  Setup
