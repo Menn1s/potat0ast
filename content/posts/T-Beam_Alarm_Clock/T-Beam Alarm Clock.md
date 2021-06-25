@@ -9,7 +9,7 @@ tags:
 - esp32
 ---
 
-# Introduction
+## Introduction
 SKIP if you just want the *How to*.
 Microcontrollers can be fairly difficult to get into. For the most part, if I had any project, I would head straight for github and grab either some code to push through the Arduino IDE or something that could be flashed (with some more magical GUI software). 
 Then, my friend shared with me a project called (Meshtastic)[https://meshtastic.org/] where, using a combination of LORA 915Mhz communication and GPS, you could have an open source device that would let you keep in touch with your party in the great outdoors (without wifi, LTE, or any other more stationary networking resource). I was amazed by what it could do, and I saw that there was just more software to be flashed. So I put in an order for two TTGO T-Beams and waited for them to come in from overseas. 
@@ -19,7 +19,7 @@ Anyway, I needed an alarm because I didn't want an excuse to keep my phone near 
 ![19319ca1ecebdab7b1d394774de2f5dc.png](19319ca1ecebdab7b1d394774de2f5dc.png)
 I opted to at least make some use of the hundred dollars spent (wasted).
 
-#  Setup
+##  Setup
 So here are some prerequisites we will need before starting:
 - Drivers
     - https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers for Windows and Mac. From Silabs. Guess we just have to trust it and click next on the install prompts very quickly so the viruses can't multiply.
