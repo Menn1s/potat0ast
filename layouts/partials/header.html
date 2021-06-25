@@ -2,7 +2,6 @@
       <a href="https://potat0ast.com"><img style="margin-right:.5rem;float:left; border: 0px; max-width:4rem;" src="/img/potatoAsToast.png">
   </a>
   <h1> <span>Potat0ast&nbsp&nbsp</span></h1>
-
     <nav style="padding-top:0.3rem;">
       {{ $current := . }}
   <ul>{{ range .Site.Menus.main }}
@@ -14,6 +13,9 @@
       <a href="{{ .URL }}" {{ if $active }}aria-current="page"{{ end }}><b>{{ .Name }}</b></a>
     </li>
   {{ end }}
+    <li>
+      {{ partial "toggle.html" }}
+    </li>
   </ul>
     </nav>
   </header>
