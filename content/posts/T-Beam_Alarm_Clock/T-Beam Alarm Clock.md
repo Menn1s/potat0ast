@@ -16,7 +16,7 @@ Then, my friend shared with me a project called (Meshtastic)[https://meshtastic.
 Finally they arrived... but I ordered the wrong ones with no OLED screens. I could probably work with them without the screens, but I was there for an easy ride. So I ordered another 2 (at this point I'm pushing a hundred bucks for some side project I don't know will even work).
 Those show up, I flash them and..... GPS does not connect. Needless to say, I did a bit of Googling but couldn't find much, so they started to sit there.
 Anyway, I needed an alarm because I didn't want an excuse to keep my phone near my bed (since it is the current alarm in use). That thing is an adult pacifier and probably the most appealing thing next to staring at the ceiling. So instead of buying 
-![19319ca1ecebdab7b1d394774de2f5dc.png](19319ca1ecebdab7b1d394774de2f5dc.png)
+![19319ca1ecebdab7b1d394774de2f5dc.png](/posts/T-Beam_Alarm_Clock/19319ca1ecebdab7b1d394774de2f5dc.png)
 I opted to at least make some use of the hundred dollars spent (wasted).
 
 ##  Setup
@@ -32,27 +32,27 @@ So here are some prerequisites we will need before starting:
     - NTPClient (so time isn't completely off)
 
 First download the driver and install it so your usb port can communicate with the UART channels on your board.
-![Screenshot_of_Install_CP210x_VCP_Driver.png](Screenshot_of_Install_CP210x_VCP_Driver.png)
+![Screenshot_of_Install_CP210x_VCP_Driver.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Install_CP210x_VCP_Driver.png)
 Unzip the downloaded file, double click on the dmg, double click on the driver installation app, and follow the on-screen prompts to install it.
 
 Once that is installed, also install the Arduino IDE if you haven't already. Then open it up and you should be greeted with something like this
-![adc139963d398d86b12ac76d9fe7f7c8.png](adc139963d398d86b12ac76d9fe7f7c8.png)
+![adc139963d398d86b12ac76d9fe7f7c8.png](/posts/T-Beam_Alarm_Clock/adc139963d398d86b12ac76d9fe7f7c8.png)
 If you've never used an Arduino board before, this is just some template code for the board. Anything in the {} after setup() will be run only once. Anything in between the {} after loop() will be run repeatedly... like in a loop.
 
 In order to get the code onto the T-beam board, we will need to add the particular board type into our Arduino installation. To do this, first head to the preferences or settings for the IDE and look for the field called "Additional Boards Manager URLs".
-![Screenshot_of_Arduino.png](Screenshot_of_Arduino.png)
+![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Add the following URL: https://dl.espressif.com/dl/package_esp32_index.json and open the Boards Manager.
 
-![Screenshot_of_Arduino.png](Screenshot_of_Arduino.png)
+![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Search for the esp32 (by Espressif Systems) and install it.
-![Screenshot_of_Arduino.png](Screenshot_of_Arduino.png)
+![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Go back to Tools -> Board -> ESP32 and select the T-Beam.
 Now, we have essentially configured everything we need to begin communicating with the T-Beam. You can plug in your T-Beam and begin coding and flashing code to your board. However, for more advanced functionality, it is likely that you would install libraries so you don't need to learn how to write code to communicate with a specific OLED screen or how to communicate with a networking chip. 
 
-![Screenshot_of_Arduino.png](Screenshot_of_Arduino.png)
+![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Under the Sketch tab, go to "Include Library" and select "Manage Libraries..."
 The first library we will install is Timelib so that managing time is easier. 
-![3a9daaf1dbea6e8f5d5be8410e41aab8.png](3a9daaf1dbea6e8f5d5be8410e41aab8.png)
+![3a9daaf1dbea6e8f5d5be8410e41aab8.png](/posts/T-Beam_Alarm_Clock/3a9daaf1dbea6e8f5d5be8410e41aab8.png)
 Go to the search bar and search "time" or "timelib" until you find the library shown above. The install button will be in the bottom right if you haven't already installed the library. Proceed to install all of the following libraries as well:
 - esp8266 and esp32 OLED driver for ssd1306 displays: It's a pretty self explanatory library name, but it basically makes it easier to use the small displays that are used on arduino boards. For example, you can print text to the screen or draw shapes to the screen.
 - NTPClient: Contains the code that allows the board to communicate using the network time protocol and get accurate, current time/date.
