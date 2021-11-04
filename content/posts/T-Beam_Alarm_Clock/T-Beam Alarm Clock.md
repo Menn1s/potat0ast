@@ -41,12 +41,9 @@ Once that is installed, also install the Arduino IDE if you haven't already. The
 If you've never used an Arduino board before, this is just some template code for the board. Anything in the {} after setup() will be run only once. Anything in between the {} after loop() will be run repeatedly... like in a loop.
 
 In order to get the code onto the T-beam board, we will need to add the particular board type into our Arduino installation. To do this, first head to the preferences or settings for the IDE and look for the field called "Additional Boards Manager URLs".
-![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Add the following URL: https://dl.espressif.com/dl/package_esp32_index.json and open the Boards Manager.
 
-![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Search for the esp32 (by Espressif Systems) and install it.
-![Screenshot_of_Arduino.png](/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png)
 Go back to Tools -> Board -> ESP32 and select the T-Beam.
 Now, we have essentially configured everything we need to begin communicating with the T-Beam. You can plug in your T-Beam and begin coding and flashing code to your board. However, for more advanced functionality, it is likely that you would install libraries so you don't need to learn how to write code to communicate with a specific OLED screen or how to communicate with a networking chip. 
 
