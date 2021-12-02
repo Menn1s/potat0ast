@@ -1,3 +1,13 @@
+---
+title: "Github Actions for Red Team Tools"
+date: 2021-12-1T10:08:56-08:00
+draft: false
+tags: 
+- Tools
+- Automation
+- Github
+---
+
 # Github Actions for Red Team Tools
 
 The usual way to generate red team tools (many C# post-exploit tools) would involve downloading the individual tool from Github, then compiling. On Windows, this was especially tough for me because sometimes the Visual Studio environment would break or it simply involved the extra step of starting a VM. Then there were issues with outdated Git repos and outdated binaries. 
