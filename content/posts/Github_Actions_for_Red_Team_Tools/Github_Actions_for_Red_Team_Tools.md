@@ -17,7 +17,7 @@ To get around this and to have Github Actions take care of pretty much all the c
 
 To get started with your own CI/CD environment, start by creating a Github repository that will hold the repositories that you want to have compiled. I am going to be using SharpHound3 and some repos from GhostPack.
 
-![create-repo.png](create-repo.png)
+![create-repo.png](/posts/Github_Actions_for_Red_Team_Tools/create-repo.png)
 With that done, clone the repo to your local machine to begin adding subrepos to it.
 ```bash
 git clone git@github.com:Menn1s/tool-builder.git
@@ -40,7 +40,7 @@ git push
 ```
 
 Going back to the web UI, click on the Actions tab for your new repository. In short, Github Actions provides us with a way to run workflows remotely using Github's hosted resources. The YAML file used to configure the action will specify the environment and set it up so that it can compile the code we want. If you've ever worked with Dockerfiles before, this should be familiar.
-![actions-tab.png](actions-tab.png)
+![actions-tab.png](/posts/Github_Actions_for_Red_Team_Tools/actions-tab.png)
 From here, select the Simple workflow and we will fill out the contents with some YAML. It is quite a bit of text, so I will provide a link to the file [here](https://raw.githubusercontent.com/Menn1s/tool-builder/master/.github/workflows/builder.yml) and just break down the important parts below. If you want things to just work (assuming nothing has changed with nuget or any of the other moving parts), just copy and paste the YAML, name the file, and commit the change.
 
 The top of the YAML document indicates when the action will be run. In our case, we want it to run each time a change is pushed.
@@ -89,8 +89,8 @@ Because this binary is in the containerized workflow environment, we also need a
 These steps repeat for each project repository we have. I used a bit of copy and pasting and vim to make the task a bit less repetitive.
 
 Once you have commited the YAML file to describe the workflow, the workflow should actually be triggered. Navigate to the Actions tab for your project.
-![actionTabAfterPush.png](actionTabAfterPush.png)
+![actionTabAfterPush.png](/posts/Github_Actions_for_Red_Team_Tools/actionTabAfterPush.png)
 
 Click on the workflow to see its output.
-![workflowOut.png](workflowOut.png)
+![workflowOut.png](/posts/Github_Actions_for_Red_Team_Tools/workflowOut.png)
 You should be able to see all the binaries you wanted to compile! And that's all there is to it. The post I referenced above also mentions adding some basic obfuscation to the process. Since we have compilation automated, why not go the extra step. The possibilities seem endless, and I definitely want to explore the Github workflows more. Stay toasty!
