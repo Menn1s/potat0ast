@@ -19,3 +19,7 @@ Long story short, one function (the safer one) reaches out to an iOS API that ha
 The other function requests user auth, and based on whether the success boolean is true or false, application logic will execute. Since all of those callback blocks and the logic handling is in the app's context, it can be hooked and modified by Frida. 
 
 I think. Tell me if I got something wildly wrong xD @M3nn1s for now.
+
+also. Test image 
+![Test123.png](Test123.png)
+
