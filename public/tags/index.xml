@@ -6,96 +6,112 @@
     <description>Recent content in Tags on potat0ast</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Jan 2021 21:55:56 -0800</lastBuildDate><atom:link href="https://potat0ast.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Nov 2023 21:33:56 -0800</lastBuildDate>
+    <atom:link href="https://potat0ast.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>frida</title>
+      <link>https://potat0ast.com/tags/frida/</link>
+      <pubDate>Tue, 28 Nov 2023 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/frida/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ios</title>
+      <link>https://potat0ast.com/tags/ios/</link>
+      <pubDate>Tue, 28 Nov 2023 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/ios/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>mobile</title>
+      <link>https://potat0ast.com/tags/mobile/</link>
+      <pubDate>Tue, 28 Nov 2023 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/mobile/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Automation</title>
+      <link>https://potat0ast.com/tags/automation/</link>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/automation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Github</title>
+      <link>https://potat0ast.com/tags/github/</link>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/github/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tools</title>
+      <link>https://potat0ast.com/tags/tools/</link>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>arduino</title>
+      <link>https://potat0ast.com/tags/arduino/</link>
+      <pubDate>Mon, 24 May 2021 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/arduino/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>esp32</title>
+      <link>https://potat0ast.com/tags/esp32/</link>
+      <pubDate>Mon, 24 May 2021 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/esp32/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>t-beam</title>
+      <link>https://potat0ast.com/tags/t-beam/</link>
+      <pubDate>Mon, 24 May 2021 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/t-beam/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>wifi</title>
+      <link>https://potat0ast.com/tags/wifi/</link>
+      <pubDate>Mon, 24 May 2021 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/wifi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>dns</title>
+      <link>https://potat0ast.com/tags/dns/</link>
+      <pubDate>Wed, 19 May 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/dns/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>exfiltration</title>
+      <link>https://potat0ast.com/tags/exfiltration/</link>
+      <pubDate>Wed, 19 May 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/exfiltration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>oob</title>
+      <link>https://potat0ast.com/tags/oob/</link>
+      <pubDate>Wed, 19 May 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/tags/oob/</guid>
+      <description></description>
+    </item>
     <item>
       <title>test</title>
       <link>https://potat0ast.com/tags/test/</link>
       <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
-      
       <guid>https://potat0ast.com/tags/test/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>welcome</title>
       <link>https://potat0ast.com/tags/welcome/</link>
       <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
-      
       <guid>https://potat0ast.com/tags/welcome/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>css</title>
-      <link>https://potat0ast.com/tags/css/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/css/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>html</title>
-      <link>https://potat0ast.com/tags/html/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/html/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>markdown</title>
-      <link>https://potat0ast.com/tags/markdown/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>themes</title>
-      <link>https://potat0ast.com/tags/themes/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/themes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>privacy</title>
-      <link>https://potat0ast.com/tags/privacy/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/privacy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shortcodes</title>
-      <link>https://potat0ast.com/tags/shortcodes/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/shortcodes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>text</title>
-      <link>https://potat0ast.com/tags/text/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/text/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>emoji</title>
-      <link>https://potat0ast.com/tags/emoji/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://potat0ast.com/tags/emoji/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>

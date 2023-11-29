@@ -5,6 +5,7 @@
     <link>https://potat0ast.com/series/</link>
     <description>Recent content in Series on potat0ast</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://potat0ast.com/series/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <atom:link href="https://potat0ast.com/series/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

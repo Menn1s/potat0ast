@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dns on potat0ast</title>
+    <link>https://potat0ast.com/tags/dns/</link>
+    <description>Recent content in dns on potat0ast</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 May 2021 10:08:56 -0800</lastBuildDate>
+    <atom:link href="https://potat0ast.com/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configuring Iodine</title>
+      <link>https://potat0ast.com/2021/05/19/iodine/</link>
+      <pubDate>Wed, 19 May 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/2021/05/19/iodine/</guid>
+      <description>Introduction # What is Iodine? Rather than defining it, let&amp;rsquo;s start with an example. Let&amp;rsquo;s say you have physical access to a box and you desperately need to exfiltrate some data. However, you quickly discover that you cannot connect outbound on any port except 53. Basic protocol checks prevent you from simply configuring an FTP server on port 53 of your cloud server. And to throw another wrench into the gears, it seems like they have locked you into a set of standard public DNS servers anyway.</description>
+    </item>
+  </channel>
+</rss>

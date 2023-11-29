@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>esp32 on potat0ast</title>
+    <link>https://potat0ast.com/tags/esp32/</link>
+    <description>Recent content in esp32 on potat0ast</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 24 May 2021 21:33:56 -0800</lastBuildDate>
+    <atom:link href="https://potat0ast.com/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>T-Beam Alarm Clock (with NTP!)</title>
+      <link>https://potat0ast.com/2021/05/24/t-beam-alarm-clock/</link>
+      <pubDate>Mon, 24 May 2021 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/2021/05/24/t-beam-alarm-clock/</guid>
+      <description>Introduction # SKIP if you just want the How to. Microcontrollers can be fairly difficult to get into. For the most part, if I had any project, I would head straight for github and grab either some code to push through the Arduino IDE or something that could be flashed (with some more magical GUI software). Then, my friend shared with me a project called (Meshtastic)[https://meshtastic.org/] where, using a combination of LORA 915Mhz communication and GPS, you could have an open source device that would let you keep in touch with your party in the great outdoors (without wifi, LTE, or any other more stationary networking resource).</description>
+    </item>
+  </channel>
+</rss>

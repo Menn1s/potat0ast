@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ios on potat0ast</title>
+    <link>https://potat0ast.com/tags/ios/</link>
+    <description>Recent content in ios on potat0ast</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Nov 2023 21:33:56 -0800</lastBuildDate>
+    <atom:link href="https://potat0ast.com/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bit: iOS Biometrics Bypasses</title>
+      <link>https://potat0ast.com/2023/11/28/bit_on_ios_biometrics_bypasses/</link>
+      <pubDate>Tue, 28 Nov 2023 21:33:56 -0800</pubDate>
+      <guid>https://potat0ast.com/2023/11/28/bit_on_ios_biometrics_bypasses/</guid>
+      <description>Introduction # So I was looking at biometric bypasses on iOS and found myself not understanding why certain applications/app logic could be bypassed with a simple Frida script while others were nothing but trouble.
+Setup # I did some reading. test was super helpful, combined with some Googling and Bard/ChatGPT to help me figure out very basic Obj-C syntax.
+Long story short, one function (the safer one) reaches out to an iOS API that handles keychain items and requests auth from the user.</description>
+    </item>
+  </channel>
+</rss>

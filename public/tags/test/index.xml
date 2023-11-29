@@ -6,16 +6,17 @@
     <description>Recent content in test on potat0ast</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Jan 2021 21:55:56 -0800</lastBuildDate><atom:link href="https://potat0ast.com/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jan 2021 21:55:56 -0800</lastBuildDate>
+    <atom:link href="https://potat0ast.com/tags/test/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Post</title>
       <link>https://potat0ast.com/2021/01/05/my-first-post/</link>
       <pubDate>Tue, 05 Jan 2021 21:55:56 -0800</pubDate>
-      
       <guid>https://potat0ast.com/2021/01/05/my-first-post/</guid>
       <description>Hello and welcome to la blog
-import sys for x in sys.argv: print(x) Figure 1: Sandwich</description>
+import sys for x in sys.argv: print(x) Figure 1: Sandwich
+Colorful text!
+This is shortcode text emoji_page hello test </description>
     </item>
-    
   </channel>
 </rss>

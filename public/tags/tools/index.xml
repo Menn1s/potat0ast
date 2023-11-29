@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on potat0ast</title>
+    <link>https://potat0ast.com/tags/tools/</link>
+    <description>Recent content in Tools on potat0ast</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Dec 2021 10:08:56 -0800</lastBuildDate>
+    <atom:link href="https://potat0ast.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Actions for Red Team Tools</title>
+      <link>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</link>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</guid>
+      <description>The usual way to generate red team tools (many C# post-exploit tools) would involve downloading the individual tool from Github, then compiling. On Windows, this was especially tough for me because sometimes the Visual Studio environment would break or it simply involved the extra step of starting a VM. Then there were issues with outdated Git repos and outdated binaries.
+To get around this and to have Github Actions take care of pretty much all the compiling, I setup an repository that would take care of it.</description>
+    </item>
+    <item>
+      <title>Github Actions for Red Team Tools</title>
+      <link>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</link>
+      <pubDate>Wed, 01 Dec 2021 10:08:56 -0800</pubDate>
+      <guid>https://potat0ast.com/2021/12/01/github_actions_for_red_team_tools/</guid>
+      <description>text</description>
+    </item>
+  </channel>
+</rss>
