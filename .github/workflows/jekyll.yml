@@ -44,8 +44,8 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Init bundle
         run: bundle init
-      - name: List contents of dir
-        run: ls
+      - name: Install Jekyll
+        run: gem install jekyll
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build
