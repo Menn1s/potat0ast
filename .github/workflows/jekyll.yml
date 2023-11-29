@@ -46,6 +46,8 @@ jobs:
         run: bundle init
       - name: Install Jekyll
         run: gem install jekyll
+      - name: Add Jekyll to the gem for use
+        run: bundle add jekyll
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build
