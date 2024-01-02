@@ -24,3 +24,7 @@ I think. Tell me if I got something wildly wrong xD @M3nn1s for now.
 also. Test image 
 ![Test123.png](/posts/Bit_On_iOS_Biometrics_Bypasses/Test123.png)
 
+So continued; I did some reading and the application I was working with essentially was only using the iOS biometrics functionality to return a boolean that would be used for further application logic.
+
+The first step to fixing this issue would be to actually store the tokens into the iOS keychain. Once it is there, it can be additionally protected by several access control flags to prevent access when the fingerprint has not been authenticated (something that cannot be modified from user or application level privileges). These flags include `kSecAccessControlBiometryCurrentSet` (ensures information can only be retrieved after entering valid biometric information), `kSecAccessControlBiometryAny` (similar to before, but can also work with new biometrics), and `kSecAccessControlUserPresence` (allows either passcode or biometric authentication to access the information).
+![testImg2.png](/posts/Bit_On_iOS_Biometrics_Bypasses/testImg2.png)
