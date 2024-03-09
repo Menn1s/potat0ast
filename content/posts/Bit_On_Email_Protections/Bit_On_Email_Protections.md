@@ -1,11 +1,10 @@
 ---
-title: Bit on Email Protections
-date: 2024-03-09T21:55:56-08:00
+title: "Bit: Email Protections"
+date: 2024-03-09T04:55:56-08:00
 draft: false
 tags:
   - email
 ---
-
 
 **SPF** - Record of IPs for a certain domain. 
 1. Email is sent by sender. 
