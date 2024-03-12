@@ -7,7 +7,7 @@ tags:
   - android
 ---
 
-This was performed around the same time as my reading into iOS biometric bypasses, but I just never really got a chance to dig into it. See {{<preview-link "/2023/11/28/bit_on_ios_biometrics_bypasses/" iOS Biometric Bypasses>}} for some context.
+This was performed around the same time as my reading into iOS biometric bypasses, but I just never really got a chance to dig into it. See {{<preview-link "/2023/11/28/bit_on_ios_biometrics_bypasses/" iOSBiometricBypasses>}} for some context.
 
 Similar to iOS, Android provides a secure way to store data on the device. iOS uses the iOS keychain to securely store data such as keys, passwords, or anything else that is considered sensitive and needs to be stored on the device.
 
