@@ -19,6 +19,8 @@ The protection provided, however, is similar. Since the logic for authenticating
 
 The issue exists when the API is used to check authorization status (rather than just retrieve the key), then to return a boolean value representing that status to be used by the application. Once the boolean is returned, it is used by the application for further logic (and at this point it exists in application space that Frida can hook into). Frida can than be used to modify the boolean while the app runs, so even if the OS returns that the user authentication failed, the value that is used by the application for other logic can be modified.
 
+Another case is where application logic to login or perform a sensitive action waits for the `AuthenticationCallback` of `onAuthenticationSucceeded()`. This function can be manually triggered by Frida even if no biometric authentication has occurred, resulting in the sensitive action to be performed. If keys are being properly used and stored in the KeyStore, the  `setUserAuthenticationRequired` flag on a KeyStore item can be used to prevent this bypass from working. Since the OS knows no user authentication succeeded, it would not release the key if it is requested in later application logic.
+
 ## Recommendations
 Make sure sensitive data is protected with keys stored in the Android Keystore and make sure that the keys can only be retrieved with valid biometric information using `setUserAuthenticationRequired` and `setInvalidatedByBiometricEnrollment` to make sure that new biometrics will invalidate the keys (requiring re authentication to the application for new keys).
 
