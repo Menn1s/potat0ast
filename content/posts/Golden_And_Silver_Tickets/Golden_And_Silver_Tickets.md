@@ -14,7 +14,7 @@ If you've made it this far, then you either know quite a bit about cyber securit
 
 1. Given the context of how tickets work in Kerberos, a user would normally have to use their user credentials (username and password) to request a TGT or a ticket granting ticket from the key distribution center's (KDC) authentication service. Remember, authentication is essentially making sure you are who you say you are.
 
-2. This TGT that proves you are a certain user can then be used to request access to a service from the ticket granting server (TGS). The resulting ticket you get in response is called the service ticket, assuming you have permissions to the service you are requesting. This service ticket is authorization, where you are given permission based on the policies Kerberos can check (does this user have access to the service they are request?).
+2. This TGT that proves you are a certain user can then be used to request access to a service from the ticket granting server (TGS). The resulting ticket you get in response is called the service ticket, assuming you have permissions to the service you are requesting. This service ticket is authorization, where you are given permission based on the policies Kerberos can check (does this user have access to the service they are requesting?).
 
 3. This  can then be used with the service to which you want access.
 
