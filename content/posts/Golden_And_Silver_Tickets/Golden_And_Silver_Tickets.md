@@ -27,7 +27,7 @@ When communicating with the TGS, the service ticket that is given to the user is
 1. Prevents the user from modifying the service ticket since only the TGS and the target service can decrypt the service ticket.
 2. Proves that the user was authenticated by the Authentication Server and authorized by the TGS.
 
-A Silver Ticket is a forged service ticket using the credentials of the service to sign the ticket, allowing an attacker to modify the service ticket without and get access without proving they are who they say they are to the Authorization Server.
+A Silver Ticket is a forged service ticket using the credentials of the service to sign the ticket, allowing an attacker to modify the service ticket and get access without proving they are who they say they are to the Authorization Server.
 
 TL;DR, a Silver Ticket let's you claim to be anybody to a particular service. What you need to start forging Silver Tickets is just one thing:
 1. The credentials for the service account
